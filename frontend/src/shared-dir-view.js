@@ -11,12 +11,11 @@ import toaster from './components/toast';
 import ModalPortal from './components/modal-portal';
 import ZipDownloadDialog from './components/dialog/zip-download-dialog';
 import ImageDialog from './components/dialog/image-dialog';
-import AddIllegalReportDialog from './components/dialog/add-illegal-report-dialog';
 
 import './css/shared-dir-view.css';
 
 let loginUser = window.app.pageOptions.name;
-const { token, trafficOverLimit, dirName, sharedBy, path, canDownload, enableShareLinkReportIllegal } = window.shared.pageOptions;
+const { token, trafficOverLimit, dirName, sharedBy, path, canDownload } = window.shared.pageOptions;
 
 const showDownloadIcon = !trafficOverLimit && canDownload;
 
@@ -34,10 +33,7 @@ class SharedDirView extends React.Component {
 
       isImagePopupOpen: false,
       imageItems: [],
-      imageIndex: 0,
-
-      isAddIllegalReportDialogOpen: false,
-      addIllegalReportFilePath: '',
+      imageIndex: 0
     };
   }
 
@@ -202,13 +198,6 @@ class SharedDirView extends React.Component {
     }));
   }
 
-  toggleAddIllegalReportDialog = (filePath) => {
-    this.setState({
-      isAddIllegalReportDialogOpen: !this.state.isAddIllegalReportDialogOpen,
-      addIllegalReportFilePath: filePath,
-    });
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -233,7 +222,6 @@ class SharedDirView extends React.Component {
                 data={this.state}
                 zipDownloadFolder={this.zipDownloadFolder}
                 showImagePopup={this.showImagePopup}
-                toggleAddIllegalReportDialog={this.toggleAddIllegalReportDialog}
               />
             </div>
           </div>
@@ -257,14 +245,6 @@ class SharedDirView extends React.Component {
             moveToNextImage={this.moveToNextImage}
           />
         </ModalPortal>
-        }
-        {(this.state.isAddIllegalReportDialogOpen && enableShareLinkReportIllegal) &&
-          <AddIllegalReportDialog
-            sharedToken={token}
-            filePath={this.state.addIllegalReportFilePath}
-            toggleAddIllegalReportDialog={this.toggleAddIllegalReportDialog}
-            isAddIllegalReportDialogOpen={this.state.isAddIllegalReportDialogOpen}
-          />
         }
       </React.Fragment>
     );
@@ -301,7 +281,6 @@ class Content extends React.Component {
               item={item}
               zipDownloadFolder={this.props.zipDownloadFolder}
               showImagePopup={this.props.showImagePopup}
-              toggleAddIllegalReportDialog={this.props.toggleAddIllegalReportDialog}
             />;
           })}
         </tbody>
@@ -381,15 +360,8 @@ class Item extends React.Component {
           <td>{moment(item.last_modified).format('YYYY-MM-DD')}</td>
           <td>
             {showDownloadIcon &&
-            <a
-              className={`action-icon sf2-icon-download${isIconShown ? '' : ' invisible'}`}
-              href={`${fileURL}&dl=1`} title={gettext('Download')} aria-label={gettext('Download')}>
-            </a>}
-            {enableShareLinkReportIllegal &&
-            <i
-              className={`action-icon sf2-icon-security${isIconShown ? '' : ' invisible'}`}
-              onClick={() => {this.props.toggleAddIllegalReportDialog(item.file_path);}} title={gettext('Report')}>
-            </i>
+            <a className={`action-icon sf2-icon-download${isIconShown ? '' : ' invisible'}`} href={`${fileURL}&dl=1`} title={gettext('Download')} aria-label={gettext('Download')}>
+            </a>
             }
           </td>
         </tr>
