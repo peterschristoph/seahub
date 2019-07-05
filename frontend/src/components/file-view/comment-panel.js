@@ -29,9 +29,7 @@ class CommentPanel extends React.Component {
   }
 
   toggleResolvedComment = () => {
-    this.setState({
-      showResolvedComment: !this.state.showResolvedComment
-    });
+    this.setState({ showResolvedComment: !this.state.showResolvedComment });
   }
 
   listComments = () => {
@@ -43,13 +41,14 @@ class CommentPanel extends React.Component {
   }
 
   handleCommentChange = (event) => {
-    this.setState({
-      comment: event.target.value,
-    });
+    // method1: when press, if event.target.value contain @XXX, then open add participants component; 
+    this.setState({ comment: event.target.value });
   }
 
   submitComment = () => {
     let comment = this.refs.commentTextarea.value;
+    this.addFileParticipant(username);
+    // this.extractParticipant(comment);
     if (comment.trim()) {
       seafileAPI.postComment(repoID, filePath, comment).then(() => {
         this.listComments();
@@ -74,6 +73,30 @@ class CommentPanel extends React.Component {
     seafileAPI.updateComment(repoID, commentID, null, null, newComment).then((res) => {
       this.listComments();
     });
+  }
+
+  // extractParticipant = (comment) => {
+  //   if (comment.indexOf('@') === -1) return;
+  //   let newComment = comment.slice(comment.indexOf('@'));
+  //   newComment = newComment.split('@');
+  //   console.log(newComment);
+  //   method2: when press submit, select participant
+  // }
+
+  addFileParticipant = (email) => {
+    let isNotParticipant;
+    if (this.state.participants.length === 0) {
+      isNotParticipant = true;
+    } else {
+      isNotParticipant = this.state.participants.every((participant) => {
+        return email !== participant;
+      });
+    }
+    if (isNotParticipant) {
+      seafileAPI.addFileParticipant(repoID, filePath, email).then((res) => {
+        this.onParticipantsChange();
+      });
+    }
   }
 
   onParticipantsChange = () => {
@@ -102,6 +125,9 @@ class CommentPanel extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.commentsNumber !== nextProps.commentsNumber) {
       this.listComments();
+    }
+    if (this.props.participants !== nextProps.participants) {
+      this.setState({ participants: nextProps.participants });
     }
   }
 
