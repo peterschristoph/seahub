@@ -5,6 +5,7 @@ import { processor } from '@seafile/seafile-editor/dist/utils/seafile-markdown2h
 import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { gettext } from '../../utils/constants';
 import { seafileAPI } from '../../utils/seafile-api';
+import ParticipantsList from '../file-view/participants-list';
 import '../../css/comments-list.css';
 
 const { username } = window.app.pageOptions;
@@ -12,6 +13,8 @@ const { username } = window.app.pageOptions;
 const DetailCommentListPropTypes = {
   repoID: PropTypes.string.isRequired,
   filePath: PropTypes.string.isRequired,
+  onParticipantsChange: PropTypes.func.isRequired,
+  fileParticipantList: PropTypes.array.isRequired,
 };
 
 class DetailCommentList extends React.Component {
@@ -76,6 +79,7 @@ class DetailCommentList extends React.Component {
   }
 
   render() {
+    const { repoID, filePath, fileParticipantList } = this.props;
     return (
       <div className="seafile-comment detail-comments h-100 w-100">
         <ul className="seafile-comment-list">
@@ -97,6 +101,15 @@ class DetailCommentList extends React.Component {
             <li className="comment-vacant">{gettext('No comment yet.')}</li>}
         </ul>
         <div className="seafile-comment-footer">
+          {fileParticipantList &&
+            <ParticipantsList
+              onParticipantsChange={this.props.onParticipantsChange}
+              participants={fileParticipantList}
+              repoID={repoID}
+              filePath={filePath}
+              showIconTip={true}
+            />
+          }
           <textarea
             className="add-comment-input" ref="commentTextarea" placeholder={gettext('Add a comment.')}
             clos="100" rows="3" warp="virtual"
