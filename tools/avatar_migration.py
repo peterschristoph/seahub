@@ -46,7 +46,7 @@ for row in rows:
     size = statinfo.st_size
     mtime = statinfo.st_mtime
     mtime_str = datetime.datetime.fromtimestamp(int(mtime)).strftime('%Y-%m-%d %H:%M:%S')
-    with file(avatar_full_path) as f:
+    with open(avatar_full_path, 'rb') as f:
         avatar_path = avatar_path.replace('\\', '/')
         avatar_path_md5 = hashlib.md5(avatar_path.encode('utf-8')).hexdigest()
         binary = f.read()
