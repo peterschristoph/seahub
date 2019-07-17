@@ -884,7 +884,7 @@ else:
         pass
 
 def calc_file_path_hash(path, bits=12):
-    if isinstance(path, unicode):
+    if isinstance(path, str):
         path = path.encode('UTF-8')
 
     path_hash = hashlib.md5(urllib2.quote(path)).hexdigest()[:bits]
@@ -1248,7 +1248,7 @@ if HAS_OFFICE_CONVERTER:
             add_office_convert_task(obj_id, doctype, raw_path)
         except:
             logging.exception('failed to add_office_convert_task:')
-            return _(u'Internal error')
+            return _('Internal error')
         return None
 
 # search realted
@@ -1343,7 +1343,7 @@ def calculate_bitwise(num):
     return level
 
 def do_md5(s):
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         s = s.encode('UTF-8')
     return hashlib.md5(s).hexdigest()
 

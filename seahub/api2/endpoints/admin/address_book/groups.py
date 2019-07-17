@@ -77,12 +77,12 @@ class AdminAddressBookGroups(APIView):
 
         # Check whether group name is validate.
         if not validate_group_name(group_name):
-            error_msg = _(u'Name can only contain letters, numbers, blank, hyphen or underscore.')
+            error_msg = _('Name can only contain letters, numbers, blank, hyphen or underscore.')
             return api_error(status.HTTP_400_BAD_REQUEST, error_msg)
 
         # Check whether group name is duplicated.
         if check_group_name_conflict(request, group_name):
-            error_msg = _(u'The name already exists.')
+            error_msg = _('The name already exists.')
             return api_error(status.HTTP_400_BAD_REQUEST, error_msg)
 
         # Group owner is 'system admin'
@@ -226,11 +226,11 @@ class AdminAddressBookGroup(APIView):
             return api_error(status.HTTP_500_INTERNAL_SERVER_ERROR, error_msg)
 
         if has_repo:
-            error_msg = _(u'There are libraries in this department.')
+            error_msg = _('There are libraries in this department.')
             return api_error(status.HTTP_403_FORBIDDEN, error_msg)
 
         if len(child_groups) > 0:
-            error_msg = _(u'There are sub-departments in this department.')
+            error_msg = _('There are sub-departments in this department.')
             return api_error(status.HTTP_403_FORBIDDEN, error_msg)
 
         try:
