@@ -5,9 +5,9 @@ import os
 
 from django.test import TestCase, Client
 
-from group.models import GroupMessage
-from base.accounts import User
-from notifications.models import UserNotification
+from seahub.group.models import GroupMessage
+from seahub.base.accounts import User
+from seahub.notifications.models import UserNotification
 
 class GroupTestCase(TestCase):
     """
