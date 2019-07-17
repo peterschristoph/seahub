@@ -760,7 +760,7 @@ def view_lib_file(request, repo_id, path):
                     img_list.append(dirent.obj_name)
 
         if len(img_list) > 1:
-            img_list.sort(lambda x, y : cmp(x.lower(), y.lower()))
+            img_list.sort(key=lambda x: x.lower())
             cur_img_index = img_list.index(filename)
             if cur_img_index != 0:
                 img_prev = posixpath.join(parent_dir, img_list[cur_img_index - 1])
@@ -1464,7 +1464,7 @@ def view_file_via_shared_dir(request, fileshare):
                         img_list.append(dirent.obj_name)
 
             if len(img_list) > 1:
-                img_list.sort(lambda x, y : cmp(x.lower(), y.lower()))
+                img_list.sort(key=lambda x: x.lower())
                 cur_img_index = img_list.index(filename)
                 if cur_img_index != 0:
                     img_prev = posixpath.join(parent_dir, img_list[cur_img_index - 1])
