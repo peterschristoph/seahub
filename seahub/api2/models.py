@@ -67,18 +67,18 @@ class TokenV2Manager(models.Manager):
             'ios': 1,
         }
 
-        def sort_devices(d1, d2):
-            '''Desktop clients are listed before mobile clients. Devices of
-            the same category are listed by most recently used first
+        # def sort_devices(d1, d2):
+        #     '''Desktop clients are listed before mobile clients. Devices of
+        #     the same category are listed by most recently used first
+        #
+        #     '''
+        #     ret = cmp(platform_priorities[d1.platform], platform_priorities[d2.platform])
+        #     if ret != 0:
+        #         return ret
+        #
+        #     return cmp(d2.last_accessed, d1.last_accessed)
 
-            '''
-            ret = cmp(platform_priorities[d1.platform], platform_priorities[d2.platform])
-            if ret != 0:
-                return ret
-
-            return cmp(d2.last_accessed, d1.last_accessed)
-
-        return [ d.as_dict() for d in sorted(devices, sort_devices) ]
+        return [d.as_dict() for d in sorted(devices, key=lambda x: x.platform)]
 
     def _get_token_by_user_device(self, username, platform, device_id):
         try:
