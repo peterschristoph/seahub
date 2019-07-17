@@ -1,6 +1,6 @@
 # Copyright (c) 2012-2016 Seafile Ltd.
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import hashlib
 
 from django import template
@@ -34,7 +34,7 @@ def avatar_url(user, size=AVATAR_DEFAULT_SIZE):
                 params['d'] = AVATAR_GRAVATAR_DEFAULT
             return "http://www.gravatar.com/avatar/%s/?%s" % (
                 hashlib.md5(user.email).hexdigest(),
-                urllib.urlencode(params))
+                urllib.parse.urlencode(params))
         else:
             url = get_default_avatar_url()
 
