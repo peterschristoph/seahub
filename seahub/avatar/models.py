@@ -39,7 +39,7 @@ def avatar_file_path(instance=None, filename=None, size=None, ext=None):
     if isinstance(instance, Avatar):
         tmppath = [AVATAR_STORAGE_DIR]
         if AVATAR_HASH_USERDIRNAMES:
-            tmp = hashlib.md5(instance.emailuser).hexdigest()
+            tmp = hashlib.md5(instance.emailuser.encode('utf-8')).hexdigest()
             tmppath.extend([tmp[0], tmp[1], tmp[2:]])
         else:
             tmppath.append(instance.emailuser)

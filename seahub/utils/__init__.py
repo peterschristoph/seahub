@@ -887,7 +887,7 @@ def calc_file_path_hash(path, bits=12):
     if isinstance(path, str):
         path = path.encode('UTF-8')
 
-    path_hash = hashlib.md5(urllib.parse.quote(path)).hexdigest()[:bits]
+    path_hash = hashlib.md5(urllib.parse.quote(path).encode('utf-8')).hexdigest()[:bits]
 
     return path_hash
 
