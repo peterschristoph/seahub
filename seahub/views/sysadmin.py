@@ -2051,7 +2051,7 @@ def batch_add_user(request):
         rows = wb.worksheets[0].rows
         records = []
         # remove first row(head field).
-        rows.next()
+        next(rows)
         for row in rows:
             # value of email and password is not None
             if row[0].value and row[1].value:
