@@ -309,10 +309,10 @@ class SharedRepo(APIView):
         if share_type == 'public':
             pub_repos = []
             if org_id:
-                pub_repos = seaserv.list_org_inner_pub_repos(org_id, username)
+                pub_repos = seafile_api.list_org_inner_pub_repos_by_owner(org_id, username)
 
             if not request.cloud_mode:
-                pub_repos = seaserv.list_inner_pub_repos(username)
+                pub_repos = seafile_api.list_inner_pub_repos_by_owner(username)
 
             try:
                 if org_id:
