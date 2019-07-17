@@ -83,7 +83,7 @@ class AdminDeviceTrustedIP(APIView):
     @check_parameter
     def get(self, request, format=None):
         ip_list = [ip.to_dict() for ip in TrustedIP.objects.all()]
-        ip_list = sorted(ip_list, cmp=cmp_ip)
+        ip_list = sorted(ip_list, key=lambda x: x.get('ip'))
         return Response(ip_list)
 
     @check_parameter
