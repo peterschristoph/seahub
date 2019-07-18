@@ -1,6 +1,6 @@
 language: python
 python:
-  - "2.7"
+  - "3.6"
 
 cache:
   directories:
@@ -17,7 +17,7 @@ before_install:
   # npm token to fetch private repos
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
   # build/init/start ccnet-server/seafile-server
-  - git clone --depth=1 --branch=master git://github.com/haiwen/seafile-test-deploy /tmp/seafile-test-deploy
+  - git clone --depth=1 --branch=python3 git://github.com/haiwen/seafile-test-deploy /tmp/seafile-test-deploy
   - cd /tmp/seafile-test-deploy && ./bootstrap.sh && cd -
 
   # install nginx
@@ -54,3 +54,4 @@ branches:
   only:
     - master
     - 7.0
+    - python3-7.0
