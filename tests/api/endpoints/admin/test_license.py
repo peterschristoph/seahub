@@ -25,7 +25,7 @@ class AdminLicenseTest(BaseTestCase):
                 os.path.join(os.getcwd(), 'tests/seahub/utils/seafile-license.txt')) as f:
             resp = self.client.post(url, {'license': f})
         json_resp = json.loads(resp.content)
-        print('=========', json_resp)
+
         assert json_resp['success'] is True
         assert os.path.exists(LICENSE_PATH)
 
