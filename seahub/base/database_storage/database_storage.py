@@ -164,7 +164,7 @@ class DatabaseStorage(Storage):
         binary = content.read()
 
         size = len(binary)
-        encoded = base64.b64encode(binary)
+        encoded = base64.b64encode(binary.encode('utf-8'))
         mtime = value_to_db_datetime(datetime.today())
 
         with transaction.atomic(using='default'):
