@@ -1583,7 +1583,7 @@ def file_edit_submit(request, repo_id):
         return error_json(_('The encoding you chose is not proper.'))
 
     try:
-        bytesWritten = os.write(fd, content)
+        bytesWritten = os.write(fd, content.encode('utf-8'))
     except:
         bytesWritten = -1
     finally:
