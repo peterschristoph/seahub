@@ -2031,14 +2031,14 @@ def batch_add_user(request):
     if request.method != 'POST':
         raise Http404
 
-    next = request.META.get('HTTP_REFERER', reverse(sys_user_admin))
+    next_page = request.META.get('HTTP_REFERER', reverse(sys_user_admin))
 
     form = BatchAddUserForm(request.POST, request.FILES)
     if form.is_valid():
         content = request.FILES['file'].read()
         if str(request.FILES['file']).split('.')[-1].lower() != 'xlsx':
             messages.error(request, _('Please choose a .xlsx file.'))
-            return HttpResponseRedirect(next)
+            return HttpResponseRedirect(next_page)
 
         try:
             fs = BytesIO(content)
@@ -2046,7 +2046,7 @@ def batch_add_user(request):
         except Exception as e:
             logger.error(e)
             messages.error(request, _('Internal Server Error'))
-            return HttpResponseRedirect(next)
+            return HttpResponseRedirect(next_page)
 
         rows = wb.worksheets[0].rows
         records = []
@@ -2059,7 +2059,7 @@ def batch_add_user(request):
 
         if user_number_over_limit(new_users=len(records)):
             messages.error(request, _('The number of users exceeds the limit.'))
-            return HttpResponseRedirect(next)
+            return HttpResponseRedirect(next_page)
 
         for row in records:
             try:
@@ -2122,7 +2122,7 @@ def batch_add_user(request):
     else:
         messages.error(request, _('Please choose a .xlsx file.'))
 
-    return HttpResponseRedirect(next)
+    return HttpResponseRedirect(next_page)
 
 @login_required
 def sys_sudo_mode(request):
