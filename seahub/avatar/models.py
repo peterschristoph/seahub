@@ -63,7 +63,7 @@ def avatar_file_path(instance=None, filename=None, size=None, ext=None):
         # File doesn't exist yet
         if AVATAR_HASH_FILENAMES:
             (root, ext) = os.path.splitext(filename)
-            filename = hashlib.md5(smart_str(filename)).hexdigest()
+            filename = hashlib.md5(smart_str(filename).encode('utf-8')).hexdigest()
             filename = filename + ext
     if size:
         tmppath.extend(['resized', str(size)])
