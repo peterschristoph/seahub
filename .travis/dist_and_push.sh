@@ -7,7 +7,7 @@ if [[ ${TRAVIS} != "" ]]; then
 fi
 
 set -x
-SEAHUB_TESTSDIR=$(python -c "import os; print os.path.dirname(os.path.realpath('$0'))")
+SEAHUB_TESTSDIR=$(python -c "import os; print(os.path.dirname(os.path.realpath('$0')))")
 SEAHUB_SRCDIR=$(dirname "${SEAHUB_TESTSDIR}")
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages:${SEAHUB_SRCDIR}/thirdpart:${PYTHONPATH}"
