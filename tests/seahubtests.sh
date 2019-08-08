@@ -24,7 +24,7 @@ if [[ ${TRAVIS} != "" ]]; then
 fi
 
 set -x
-SEAHUB_TESTSDIR=$(python -c "import os; print os.path.dirname(os.path.realpath('$0'))")
+SEAHUB_TESTSDIR=$(python -c "import os; print(os.path.dirname(os.path.realpath('$0')))")
 SEAHUB_SRCDIR=$(dirname "${SEAHUB_TESTSDIR}")
 
 export SEAHUB_LOG_DIR='/tmp/logs'
