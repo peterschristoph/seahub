@@ -39,9 +39,9 @@ function init() {
     $PYTHON ./manage.py migrate --noinput
 
     # create normal user
-    $PYTHON -c "import ccnet; pool = ccnet.ClientPool('${CCNET_CONF_DIR}'); ccnet_threaded_rpc = ccnet.CcnetThreadedRpcClient(pool, req_pool=True); ccnet_threaded_rpc.add_emailuser('${SEAHUB_TEST_USERNAME}', '${SEAHUB_TEST_PASSWORD}', 0, 1);"
+    $PYTHON -c "import os; import ccnet; ccnet_pipe_path = os.path.join ('${CCNET_CONF_DIR}', 'ccnet-rpc.sock'); ccnet_threaded_rpc = ccnet.CcnetThreadedRpcClient(ccnet_pipe_path); ccnet_threaded_rpc.add_emailuser('${SEAHUB_TEST_USERNAME}', '${SEAHUB_TEST_PASSWORD}', 0, 1);"
     # create admin
-    $PYTHON -c "import ccnet; pool = ccnet.ClientPool('${CCNET_CONF_DIR}'); ccnet_threaded_rpc = ccnet.CcnetThreadedRpcClient(pool, req_pool=True); ccnet_threaded_rpc.add_emailuser('${SEAHUB_TEST_ADMIN_USERNAME}', '${SEAHUB_TEST_ADMIN_PASSWORD}', 1, 1);"
+    $PYTHON -c "import os; import ccnet; ccnet_pipe_path = os.path.join ('${CCNET_CONF_DIR}', 'ccnet-rpc.sock'); ccnet_threaded_rpc = ccnet.CcnetThreadedRpcClient(ccnet_pipe_path); ccnet_threaded_rpc.add_emailuser('${SEAHUB_TEST_ADMIN_USERNAME}', '${SEAHUB_TEST_ADMIN_PASSWORD}', 1, 1);"
 
 }
 
