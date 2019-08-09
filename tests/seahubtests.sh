@@ -36,6 +36,7 @@ function init() {
     ###############################
     # create database and two new users: an admin, and a normal user
     ###############################
+    $PYTHON ./manage.py makemigrations
     $PYTHON ./manage.py migrate --noinput
 
     # create normal user
