@@ -36,7 +36,7 @@ class AESPasswordHasher:
         if not secret:
             secret = settings.SECRET_KEY[:BLOCK_SIZE]
 
-        self.cipher = AES.new(secret, AES.MODE_ECB)
+        self.cipher = AES.new(secret.encode('utf-8'), AES.MODE_ECB)
 
     def encode(self, password):
         password = force_str(password)
