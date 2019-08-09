@@ -23,13 +23,14 @@ class AccountTest(BaseTestCase):
         self.remove_user(self.user2.username)
 
     def _do_create(self):
+        email = randstring(4) + '@test.com'
         resp = self.client.put(
-            reverse('api2-account', args=['new_user@test.com']),
+            reverse('api2-account', args=[email]),
             'password=123456&is_staff=1&is_active=1',
             'application/x-www-form-urlencoded',
         )
         # manually remove this account
-        self.remove_user(email='new_user@test.com')
+        self.remove_user(email=email)
         return resp
 
     def _do_get_info(self):
