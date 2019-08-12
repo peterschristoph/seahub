@@ -61,6 +61,12 @@ function run_tests() {
     set +e
     py.test $nose_opts tests
     rvalue=$?
+
+    # ignore 120 exited code in python3.6
+    if [[ $rvalue == 120 ]]; then
+    	  rvalue=0
+    fi
+
     if [[ ${TRAVIS} != "" ]]; then
         # On travis-ci, dump seahub logs when test finished
         for logfile in /tmp/logs/*.log; do
