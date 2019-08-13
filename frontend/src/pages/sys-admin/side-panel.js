@@ -56,10 +56,10 @@ class SidePanel extends React.Component {
                 }
                 {constanceEnabled && canConfigSystem &&
                   <li className="nav-item">
-                    <a className='nav-link ellipsis' href={siteRoot + 'sys/settings/'}>
+                    <Link className='nav-link ellipsis' to={siteRoot + 'sys/web-settings/'}>
                       <span className="sf2-icon-cog2" aria-hidden="true"></span>
                       <span className="nav-text">{gettext('Settings')}</span>
-                    </a>
+                    </Link>
                   </li>
                 }
                 {canManageLibrary &&
