@@ -1,5 +1,5 @@
 #!/bin/bash
-: ${PYTHON=python}
+: ${PYTHON=python3}
 
 : ${SEAHUB_TEST_USERNAME="test@seafiletest.com"}
 : ${SEAHUB_TEST_PASSWORD="testtest"}
