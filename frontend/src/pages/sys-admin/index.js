@@ -7,6 +7,8 @@ import MainPanel from './main-panel';
 import FileScanRecords from './file-scan-records';
 import WorkWeixinDepartments from './work-weixin-departments';
 import Info from './info';
+import Repos from './repos/repos';
+import ReposTemplate from './repos/repos-template';
 
 import '../../assets/css/fa-solid.css';
 import '../../assets/css/fa-regular.css';
@@ -46,6 +48,16 @@ class SysAdmin extends React.Component {
           <Router className="reach-router">
             <Info
               path={siteRoot + 'sys/info'}
+              currentTab={currentTab}
+              tabItemClick={this.tabItemClick}
+            />
+            <Repos
+              path={siteRoot + 'sys/libraries/'}
+              currentTab={currentTab}
+              tabItemClick={this.tabItemClick}
+            />
+            <ReposTemplate
+              path={siteRoot + 'sys/libraries/:repoID/*'}
               currentTab={currentTab}
               tabItemClick={this.tabItemClick}
             />
