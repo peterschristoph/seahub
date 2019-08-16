@@ -24,6 +24,8 @@ from seahub.settings import SEAFILE_VERSION, SITE_TITLE, SITE_NAME, \
 
 from seahub.constants import DEFAULT_ADMIN
 from seahub.utils import get_site_name, get_service_url
+from seahub.utils.auth import get_login_bg_image_path
+
 from seahub.avatar.templatetags.avatar_tags import api_avatar_url
 
 try:
@@ -73,6 +75,7 @@ def base(request):
 
     logo_path = LOGO_PATH
     favicon_path = FAVICON_PATH
+    login_bg_path = get_login_bg_image_path()
 
     # filter ajax/api request out
     avatar_url = ''
@@ -97,6 +100,7 @@ def base(request):
         'branding_css': BRANDING_CSS,
         'enable_branding_css': config.ENABLE_BRANDING_CSS,
         'favicon_path': favicon_path,
+        'login_bg_path': login_bg_path,
         'dtable_favicon_path': DTABLE_FAVICON_PATH,
         'logo_path': logo_path,
         'logo_width': LOGO_WIDTH,

@@ -33,7 +33,7 @@ class AdminLogoTest(BaseTestCase):
         json_resp = json.loads(resp.content)
 
         assert 200 == resp.status_code
-        assert json_resp['success'] == True
+        assert json_resp['custom_logo_path'] == CUSTOM_LOGO_PATH
         assert os.path.exists(custom_symlink)
         assert os.path.islink(custom_symlink)
 

@@ -65,4 +65,4 @@ class AdminLogo(APIView):
             error_msg = 'Internal Server Error'
             return api_error(status.HTTP_500_INTERNAL_SERVER_ERROR, error_msg)
 
-        return Response({'success': True})
+        return Response({'custom_logo_path': CUSTOM_LOGO_PATH})

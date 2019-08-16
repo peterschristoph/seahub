@@ -32,7 +32,7 @@ class AdminFaviconTest(BaseTestCase):
 
         assert resp.status_code == 200
         json_resp = json.loads(resp.content)
-        assert json_resp['success'] == True
+        assert json_resp['custom_favicon_path'] == CUSTOM_FAVICON_PATH
         assert os.path.exists(custom_symlink)
         assert os.path.islink(custom_symlink)
 

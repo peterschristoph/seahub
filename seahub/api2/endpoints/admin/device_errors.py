@@ -62,7 +62,6 @@ class AdminDeviceErrors(APIView):
                 result['error_time'] = ''
 
             return_results.append(result)
-
         return Response(return_results)
 
     def delete(self, request, format=None):
