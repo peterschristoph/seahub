@@ -13,6 +13,7 @@ pipeline:
       - pip3 install -r dev-requirements.txt --ignore-installed
       - pip3 install -r test-requirements.txt --ignore-installed
       - .travis/test_seahub_changes.sh; rc=$?; if test "$rc" -eq 0; then ./tests/seahubtests.sh init && ./tests/seahubtests.sh runserver && ./tests/seahubtests.sh test; else true; fi
+      - .travis/dist_and_push.sh
 
 services:
   mysql:
