@@ -24,7 +24,7 @@ function commit_dist_files() {
 
 function upload_files() {
     echo 'push dist to seahub'
-    git remote add token-origin https://imwhatiam:987083465348a70c0fd4182a1b1ee77a50b8ec07@github.com/haiwen/seahub.git
+    git remote add token-origin https://sniper-py:72674b61c2ff0670336e9c124eac39aebb511dba@github.com/haiwen/seahub.git
     git push -f token-origin dist-python3-7.0
 }
 
