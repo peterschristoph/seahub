@@ -1,17 +1,14 @@
 pipeline:
   build:
-    image: docker.seafile.top/drone/seafile-pro-builder:v2
+    image: docker.seafile.top/drone/seafile-pro-builder:v3
     pull: true
     commands:
       - export TRAVIS=1
       - export CCNET_CONF_DIR=/tmp/ccnet SEAFILE_CONF_DIR=/tmp/seafile-data
-      - git clone --depth=1 --branch=python3 git://github.com/haiwen/seafile-test-deploy /tmp/seafile-test-deploy
-      - cd /tmp/seafile-test-deploy && ./bootstrap.sh && cd -
+      - cd /tmp/seafile-test-deploy && git fetch origin python3:python3 && git checkout python3
+      - ./bootstrap.sh && cd -
       - cd /drone/src/github.com/haiwen/seahub
       - ./tests/install-deps.sh
-      - npm install -g requirejs
-      - pip3 install -r dev-requirements.txt --ignore-installed
-      - pip3 install -r test-requirements.txt --ignore-installed
       - .travis/test_seahub_changes.sh; rc=$?; if test "$rc" -eq 0; then ./tests/seahubtests.sh init && ./tests/seahubtests.sh runserver && ./tests/seahubtests.sh test; else true; fi
       - .travis/dist_and_push.sh
 
