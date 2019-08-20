@@ -19,8 +19,9 @@ from seaserv import get_file_id_by_path, get_repo, get_file_size, \
 from seahub.utils import gen_inner_file_get_url, get_file_type_and_ext
 from seahub.utils.file_types import VIDEO, XMIND
 from seahub.settings import THUMBNAIL_IMAGE_SIZE_LIMIT, \
-    THUMBNAIL_EXTENSION, THUMBNAIL_ROOT, THUMBNAIL_IMAGE_ORIGINAL_SIZE_LIMIT,\
-    ENABLE_VIDEO_THUMBNAIL, THUMBNAIL_VIDEO_FRAME_TIME
+    THUMBNAIL_EXTENSION, THUMBNAIL_ROOT, THUMBNAIL_IMAGE_ORIGINAL_SIZE_LIMIT, \
+    ENABLE_VIDEO_THUMBNAIL, THUMBNAIL_VIDEO_FRAME_TIME, \
+    THUMBNAIL_QUALITY, THUMBNAIL_PROGRESSIVE
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -214,7 +215,10 @@ def create_video_thumbnails(repo, file_id, path, size, thumbnail_file, file_size
 
 def _create_thumbnail_common(fp, thumbnail_file, size):
     """Common logic for creating image thumbnail.
-
+       todo: scale down files with more than 300dpi, in thumbnail we don't need this
+       remove all exif information from thumbnail
+       add support for cr2 files from canon --> maybe we can use https://pypi.org/project/rawkit/
+       or upgrade https://github.com/mateusz-michalik/cr2-to-jpg
     `fp` can be a filename (string) or a file object.
     """
     image = Image.open(fp)
@@ -232,7 +236,7 @@ def _create_thumbnail_common(fp, thumbnail_file, size):
 
     image = get_rotated_image(image)
     image.thumbnail((size, size), Image.ANTIALIAS)
-    image.save(thumbnail_file, THUMBNAIL_EXTENSION)
+    image.save(thumbnail_file, THUMBNAIL_EXTENSION, progressive=THUMBNAIL_PROGRESSIVE, quality=THUMBNAIL_QUALITY)
     return (True, 200)
 
 def extract_xmind_image(repo_id, path, size=XMIND_IMAGE_SIZE):
